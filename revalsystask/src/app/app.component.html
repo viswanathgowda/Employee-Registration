@@ -1,0 +1,146 @@
+<div>
+  <header>Employee Registration</header>
+  <form [formGroup]="registration">
+    <div class="container">
+      <div class="row">
+        
+
+
+
+         <div>
+          <label class="col-2 mt-1">Employee Id:</label>
+          <input class="col-3 mt-1" numbersOnly  formControlName="employeeid" type="text">
+         </div>
+
+         <div >
+          <label class="col-2 mt-1">Employee Name*:</label>
+          <input class="col-3 mt-1" 
+            [class.is-invalid]="registration.get('employeename')?.touched && registration.get('employeename')?.invalid"
+            type="text" formControlName="employeename" required="">
+          <span class="col-4 mt-1" class="text-danger"
+            [class.d-none]="registration.get('employeename')?.untouched || registration.get('employeename')?.valid">please
+            provide employee name</span>
+         </div>
+
+
+         <div>
+          <label class="col-2 mt-1" for="designation" >Designation:</label>
+          
+          <select class="col-3 mt-1" id="designation" formControlName="designation" name="cars">
+            <option *ngFor="let x of designationdata" [value]="x.name">{{x.name}}</option>
+          </select>
+         </div>  
+
+         <div>
+          <label class="col-2 mt-1" >Salary*:</label>
+          <input class="col-3 mt-1" decimalOnly [class.is-invalid]="registration.get('salary')?.invalid && registration.get('salary')?.touched"
+            type="text" formControlName="salary" required>
+          <span class="col-4 mt-1" class="text-danger"
+            [class.d-none]="registration.get('salary')?.valid || registration.get('salary')?.untouched ">please provide
+            salary</span>
+         </div>
+
+         <div>
+          <label class="col-2 mt-1" >Email*:</label>
+          <input class="col-3 mt-1" [class.is-invalid]="registration.get('email')?.invalid && registration.get('email')?.touched"
+             type="email" formControlName="email" required>
+   
+            <span class="col-4 mt-1" class="text-danger"                    
+            *ngIf="registration.get('email')?.errors?.['required'] && registration.get('email')?.touched"
+            class="text-danger">*required</span>
+            <span class="col-4 mt-1" class="text-danger" *ngIf="registration.get('email')?.errors?.['email']">
+               Email not valid.</span>
+         
+         </div>
+
+         <div>
+          <label class="col-2 mt-1">Mobile*:</label>
+          <input maxlength="10" class="col-3 mt-1" numbersOnly type="text"
+            [class.is-invalid]="registration.get('mobile')?.invalid && registration.get('mobile')?.touched"
+              formControlName="mobile" required>
+            
+            <span class="col-2 mt-1"  class="text-danger"                    
+            *ngIf="registration.get('mobile')?.errors?.['required'] && registration.get('mobile')?.touched"
+            class="text-danger"> * required</span>
+            <!--<span class="text-danger" class="col-2 mt-1" class="text-danger"  *ngIf="registration.get('mobile')?.errors?.['minlength']"> Enter Valid Phone number</span>
+            <span class="col-2 mt-1" class="text-danger" *ngIf="registration.get('mobile')?.errors?.['maxlength']">Enter valid phone number</span>-->
+            <span class="text-danger" *ngIf="registration.get('mobile')?.errors?.['pattern']"> enter valid mobile number</span>
+            
+            </div>
+            
+         
+
+         <div>
+          <label class="col-2 mt-1" for="gender">Gender*:</label>
+          
+            <input formControlName="gender" type="radio" id="male" name="gender" value="male">
+            <label  for="male">Male</label>
+          
+          
+            <input type="radio" formControlName="gender" id="female" name="gender" value="female">
+            <label  for="female">Female</label>
+          
+
+         </div>
+
+         <div formGroupName="Languagesknown">
+          <label class="col-2 mt-1">Languages Known:</label>
+          
+          <input formControlName="telugu" type="checkbox" id="telugu" name="telugu" value="telugu">
+          <label for="telugu">Telugu</label>
+          
+          
+          <input formControlName="english" type="checkbox" id="english" name="english" value="english">
+          <label for="english">English</label>
+          
+          
+          <input formControlName="hindi"  type="checkbox" id="hindi" name="hindi" value="hindi">
+          <label for="hindi">Hindi</label>
+          
+         </div>
+
+         <div >
+          <label class="col-2 mt-1" >Qualification:</label>
+          <input class="col-3 mt-1" formControlName="qualification" type="text">
+         </div>
+         <span>
+          <button [disabled]="registration.status=='INVALID'" (click)="save()">{{this.buttonName }} </button>
+          <button (click)="reset()">Reset</button>
+         </span>
+         
+    
+        
+      </div>
+   </div>
+
+
+  </form>
+
+  <!-- <h2>{{registration.value | json}}</h2> -->
+
+<h1>Register Employee</h1>
+  <table class="table  table-bordered">
+    <tr class="bg-info">
+      <th scope="col">Employee Name</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">Qualification</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    <tr *ngFor="let e of employeeDetails">
+      <td scope="row">{{e.employeename}}</td>
+      <td scope="row">{{e.designation}}</td>
+      <td scope="row">{{e.salary}}</td>
+      <td scope="row">{{e.email}}</td>
+      <td scope="row">{{e.mobile}}</td>
+      <td scope="row">{{e.qualification}}</td>
+      <td scope="row"><button class="edit" (click)="edit(e)">Edit</button></td>
+      <td scope="row"><button class="delete" (click)="delete(e)">Delete</button></td>
+    </tr>
+  </table>
+  
+  
+</div>

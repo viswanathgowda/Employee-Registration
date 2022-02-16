@@ -1,0 +1,18 @@
+header{
+    background-color: aqua;
+    font-size: large;
+    padding: 25px;
+    text-decoration: underline;
+}
+h1{
+    background-color: aqua;
+    font-size: large;
+    padding: 25px;
+    text-decoration: underline;
+}
+.delete{
+    text-decoration: underline;
+}
+.edit{
+    text-decoration: underline;
+}
